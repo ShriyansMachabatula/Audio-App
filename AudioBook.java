@@ -1,0 +1,123 @@
+
+//Shriyans Machabatula
+//Student ID: 501180685
+import java.util.ArrayList;
+
+/*
+ * An AudioBook is a type of AudioContent.
+ * It is a recording made available on the internet of a book being read aloud by a narrator
+ * 
+ */
+public class AudioBook extends AudioContent {
+	public static final String TYPENAME = "AUDIOBOOK";
+
+	private String author;
+	private String narrator;
+	private ArrayList<String> chapterTitles;
+	private ArrayList<String> chapters;
+	private int currentChapter = 0;
+
+	public AudioBook(String title, int year, String id, String type, String audioFile, int length,
+			String author, String narrator, ArrayList<String> chapterTitles, ArrayList<String> chapters) {
+		// Make use of the constructor in the super class AudioContent.
+		// Initialize additional AudioBook instance variables.
+		super(title, year, id, type, audioFile, length);
+		this.author = author;
+		this.narrator = narrator;
+		this.chapterTitles = chapterTitles;
+		this.chapters = chapters;
+	}
+
+	public String getType() {
+		return TYPENAME;
+	}
+
+	// Print information about the audiobook. First print the basic information of
+	// the AudioContent
+	// by making use of the printInfo() method in superclass AudioContent and then
+	// print author and narrator
+	// see the video
+	public void printInfo() {
+		super.printInfo();
+		System.out.println("Author: " + author + " Narrator: " + narrator);
+	}
+
+	// Play the audiobook by setting the audioFile to the current chapter title
+	// (from chapterTitles array list)
+	// followed by the current chapter (from chapters array list)
+	// Then make use of the the play() method of the superclass
+	public void play() {
+		super.setAudioFile(chapterTitles.get(currentChapter) + "." + "\n" + chapters.get(currentChapter));
+		super.play();
+	}
+
+	// Print the table of contents of the book - i.e. the list of chapter titles
+	// See the video
+	public void printTOC() {
+		for (int i = 0; i < chapterTitles.size(); i++) {
+			System.out.println("Chapter " + (i + 1) + ". " + chapterTitles.get(i)); // print chapter number and title
+																					// for each chapter in the book
+			System.out.println(); // print a blank line so that there is a space between the chapter titles
+		}
+	}
+
+	// Select a specific chapter to play - nothing to do here
+	public void selectChapter(int chapter) {
+		if (chapter >= 1 && chapter <= chapters.size()) { // if the chapter number is valid, set the current chapter to
+															// the chapter number
+			currentChapter = chapter - 1; // -1 because the array list starts at 0
+		}
+	}
+
+	// Two AudioBooks are equal if their AudioContent information is equal and both
+	// the author and narrators are equal
+	public boolean equals(Object other) {
+		if (other instanceof AudioBook) {
+			AudioBook otherBook = (AudioBook) other; // cast the object to an AudioBook object
+			if (super.equals(otherBook) && author.equals(otherBook.author) // check if the AudioContent information is
+																			// equal and the author and narrator are
+																			// equal
+					&& narrator.equals(otherBook.narrator)) { // if all of these are true, the two AudioBooks are equal
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public int getNumberOfChapters() { // return the number of chapters in the book
+		return chapters.size();
+	}
+
+	public String getAuthor() { // return the author of the book
+		return author;
+	}
+
+	public void setAuthor(String author) { // set the author of the book
+		this.author = author;
+	}
+
+	public String getNarrator() { // return the narrator of the book
+		return narrator;
+	}
+
+	public void setNarrator(String narrator) { // set the narrator of the book
+		this.narrator = narrator;
+	}
+
+	public ArrayList<String> getChapterTitles() { // return the chapter titles of the book
+		return chapterTitles;
+	}
+
+	public void setChapterTitles(ArrayList<String> chapterTitles) { // set the chapter titles of the book
+		this.chapterTitles = chapterTitles;
+	}
+
+	public ArrayList<String> getChapters() {
+		return chapters;
+	}
+
+	public void setChapters(ArrayList<String> chapters) {
+		this.chapters = chapters;
+	}
+
+}

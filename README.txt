@@ -1,0 +1,1 @@
+This program is fully functional and I implemented all mandatory/required methods. I did not implement the bonus.
